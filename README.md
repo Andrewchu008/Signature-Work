@@ -1,6 +1,8 @@
 # Signature-Work
 Data Analytics/Applied AI Chief Deliverables
 
-Welcome to my GitHub Repository of my projects over the course of my educational career at DeSales University. There are a variety of data analysis, data mining, and machine learning projects.
+This repository contains Data analysis, Data Preparation and Visualization, Database Management, Database Analysis, Data Mining, Robotic Processing Automation, and Machine Learning projects, from my academic career at DeSales University, that use Python, SQL, Tableau, SAS Enterprise Miner, or Blue Prism.
 
-Feel free to email me at Andrewchu008@gmail.com if you have any questions.
+- Languages: Python, SQL
+- Packages: Numpy, Pandas, Matplotlib, Scikit-learn, Seaborn
+- Software: Jupyter Notebooks, Tableau, Blue Prism, SAS Enterprise Miner
