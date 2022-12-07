@@ -1,0 +1,759 @@
+﻿<process name="Consolidation Exercise" version="1.0" bpversion="7.1.0.62280" narrative="demo" byrefcollection="true" preferredid="4c47a337-395c-4ff3-9cf0-d2758cb90c32">
+  <view>
+    <camerax>0</camerax>
+    <cameray>255</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="4c36a5d0-8ea8-497e-8c9d-c36270889366" type="Normal" published="False">
+    <name>Global Variables</name>
+    <view>
+      <camerax>257</camerax>
+      <cameray>110</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="e3917564-0af9-4c56-b1e8-82abdf71d484" type="Normal" published="False">
+    <name>Load Orders Excel CSV</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>84</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="751b93b6-68df-47fb-bdbe-8e9d78b67d02" type="Normal" published="False">
+    <name>Launch Centrix Data Solutions</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>114</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5" type="Normal" published="False">
+    <name>Process Orders</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>164</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="56d1ff11-01fe-4273-9a47-6159edc1f410" type="Normal" published="False">
+    <name>Update Work Queue</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>74</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="001e0f1a-7ec3-4099-b5c1-420a0ab017f3" type="Normal" published="False">
+    <name>Exit Application</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="bd479eeb-ae90-4ddf-b9ef-8049daf10df0" name="Start" type="Start">
+    <display x="15" y="-105" />
+    <onsuccess>ee110227-190a-42ce-bfe5-c00e36787363</onsuccess>
+  </stage>
+  <stage stageid="40d28470-6fb9-4735-a37d-a3d9636321bc" name="End" type="End">
+    <display x="15" y="495" />
+  </stage>
+  <stage stageid="79a57ad7-f846-4630-8007-09ccd6468df7" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="53efba79-5c01-465d-a2d3-159555e79ee6" name="Load Orders Excel CSV" type="SubSheetInfo">
+    <subsheetid>e3917564-0af9-4c56-b1e8-82abdf71d484</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="1cb86254-f988-44e5-9dc3-25655f2be297" name="Start" type="Start">
+    <subsheetid>e3917564-0af9-4c56-b1e8-82abdf71d484</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>3cade030-a242-46d0-9bd7-ca911ad6d5db</onsuccess>
+  </stage>
+  <stage stageid="94593e49-a9b3-4073-a726-777c755efd7c" name="End" type="End">
+    <subsheetid>e3917564-0af9-4c56-b1e8-82abdf71d484</subsheetid>
+    <display x="15" y="210" />
+  </stage>
+  <stage stageid="ee110227-190a-42ce-bfe5-c00e36787363" name="Load Orders Excel CSV" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" />
+    <onsuccess>2759e20a-1cbc-4c65-8599-201a1a588dfe</onsuccess>
+    <processid>e3917564-0af9-4c56-b1e8-82abdf71d484</processid>
+  </stage>
+  <stage stageid="3cade030-a242-46d0-9bd7-ca911ad6d5db" name="File Exists" type="Action">
+    <subsheetid>e3917564-0af9-4c56-b1e8-82abdf71d484</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="text" name="File Name" friendlyname="File Name" narrative="The name of the file to check" expr="&quot;C:\BluePrism\Training\Applications\Windows\Orders.csv&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Exists" friendlyname="Exists" narrative="True if the file exists" stage="Exists" />
+    </outputs>
+    <onsuccess>aad061be-4a9b-41b9-a222-0492422a92b5</onsuccess>
+    <resource object="Utility - File Management" action="File Exists" />
+  </stage>
+  <stage stageid="ce43c869-8a1b-4f48-88aa-feeeb7f5e90d" name="System Exception" type="Exception">
+    <subsheetid>e3917564-0af9-4c56-b1e8-82abdf71d484</subsheetid>
+    <display x="120" y="15" />
+    <exception type="System Exception" detail="&quot;Orders file not found.&quot;" />
+  </stage>
+  <stage stageid="d6352bfc-d11c-4969-b9fa-2ddf59aa6608" name="Get CSV Text As Collection" type="Action">
+    <subsheetid>e3917564-0af9-4c56-b1e8-82abdf71d484</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" />
+    <inputs>
+      <input type="text" name="CSV File Path" friendlyname="CSV File Path" narrative="The full path to the CSV file" expr="&quot;C:\BluePrism\Training\Applications\Windows\Orders.csv&quot;" />
+      <input type="flag" name="First Line Is Header" friendlyname="First Line Is Header" narrative="Set True if you want to treat the first line as a header" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="CSV Values" friendlyname="CSV Values" narrative="The collection populated with the values of the CSV file" stage="CSV Values" />
+    </outputs>
+    <onsuccess>a0d657e2-857c-4846-9d83-0f2e3536a986</onsuccess>
+    <resource object="Utility - File Management" action="Get CSV Text As Collection" />
+  </stage>
+  <stage stageid="6c4cf07b-1c2c-4d72-b2ab-fec75d50c43c" name="CSV Values" type="Collection">
+    <subsheetid>e3917564-0af9-4c56-b1e8-82abdf71d484</subsheetid>
+    <display x="-165" y="-15" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="aad061be-4a9b-41b9-a222-0492422a92b5" name="File Exists?" type="Decision">
+    <subsheetid>e3917564-0af9-4c56-b1e8-82abdf71d484</subsheetid>
+    <display x="15" y="15" />
+    <decision expression="[Exists]" />
+    <ontrue>d6352bfc-d11c-4969-b9fa-2ddf59aa6608</ontrue>
+    <onfalse>ce43c869-8a1b-4f48-88aa-feeeb7f5e90d</onfalse>
+  </stage>
+  <stage stageid="460fa42f-ffb3-4bec-8f80-13d1a4e1fdb0" name="Exists" type="Data">
+    <subsheetid>e3917564-0af9-4c56-b1e8-82abdf71d484</subsheetid>
+    <display x="-195" y="30" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a0d657e2-857c-4846-9d83-0f2e3536a986" name="Add To Work Queue" type="Action">
+    <subsheetid>e3917564-0af9-4c56-b1e8-82abdf71d484</subsheetid>
+    <narrative>The Data collection contains the items to be added to the queue. The collection may contain single or multiple rows, with each representing an item to be added.
+
+If there is a failure during the process, the queue will be unchanged - i.e. no rows will be loaded even if the error occurred on the last one.
+
+If Defer Until is specified, the items will not be available to be worked until then. Otherwise, they are available immediately.
+
+If the queue has a key field defined, an item added has key data longer than the maximum permitted 255 characters, an error will occur</narrative>
+    <display x="15" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="[Work Queue Name]" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[CSV Values]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="0" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="&quot;New Order&quot;" />
+      <input type="number" name="Batch Size" friendlyname="Batch Size" narrative="Optionally, the batch size to use when adding many items to the queue.  A Value of 0 will process all items in one batch.  An empty field will use the default batch size of 1000." expr="">
+        <validator type="BluePrism.AutomateProcessCore.RangeParameterValidation" parameter="0:25000" />
+      </input>
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="Item IDs" />
+    </outputs>
+    <onsuccess>94593e49-a9b3-4073-a726-777c755efd7c</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="aeb0ca1d-4851-431a-8f7b-98417f08a22f" name="Global Variables" type="SubSheetInfo">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="f061e830-ef23-4e34-a1c5-76541d771119" name="Start" type="Start">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>e3ce7338-da75-4f81-b1e6-75c0f5a769dc</onsuccess>
+  </stage>
+  <stage stageid="e3ce7338-da75-4f81-b1e6-75c0f5a769dc" name="End" type="End">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="762dbfd8-ad8f-4845-9729-d2f320fea528" name="Work Queue Name" type="Data">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <display x="180" y="-90" w="180" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Consolidation Exercise</initialvalue>
+  </stage>
+  <stage stageid="194fc850-d15a-4c9e-ad60-fc223a84ac7b" name="Item IDs" type="Collection">
+    <subsheetid>e3917564-0af9-4c56-b1e8-82abdf71d484</subsheetid>
+    <display x="-180" y="75" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2f5e2cc9-cfad-4d6d-8829-46314c5952e6" name="Launch Centrix Data Solutions" type="SubSheetInfo">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="d9a497fc-69b7-47bb-8f9b-7791f5151b13" name="Start" type="Start">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>333e73c6-526c-4d93-ad46-1d23345a166f</onsuccess>
+  </stage>
+  <stage stageid="ee8a9683-ffd5-4cc6-aa32-e9ee8fee1d5f" name="End" type="End">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="15" y="300" />
+  </stage>
+  <stage stageid="333e73c6-526c-4d93-ad46-1d23345a166f" name="Kill Sessions" type="Action">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process to kill" expr="&quot;CentrixDataSolutions&quot;" />
+    </inputs>
+    <onsuccess>027e443a-ef7d-45c7-a1cc-f6758d6d0c6c</onsuccess>
+    <resource object="Utility - Environment" action="Kill Process" />
+  </stage>
+  <stage stageid="3df48441-72ce-4055-8e17-7b4407defbbc" name="Block1" type="Block">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="-45" y="15" w="210" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ba9391b7-31c4-4746-9e90-be12a47d6eee" name="Recover Launch Failure" type="Recover">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="120" y="45" />
+    <onsuccess>ad914e55-8bf9-408f-904d-c492e1db80da</onsuccess>
+  </stage>
+  <stage stageid="ad914e55-8bf9-408f-904d-c492e1db80da" name="ReThrow Exception" type="Exception">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="225" y="45" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+  <stage stageid="652a2a86-2a36-4bc9-b506-c04b61609c05" name="Block1" type="Block">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="-45" y="120" w="210" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9f32203f-ccea-4e74-8bc6-e6af1c79f5c1" name="Recover Login Failure" type="Recover">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="120" y="150" />
+    <onsuccess>4b3e1d1a-fbf8-4ebd-92bf-27181237efc0</onsuccess>
+  </stage>
+  <stage stageid="4b3e1d1a-fbf8-4ebd-92bf-27181237efc0" name="ReThrow Login Error" type="Exception">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="225" y="150" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" savescreencapture="yes" />
+  </stage>
+  <stage stageid="134a58b2-73c0-4eea-a491-892e12bdc292" name="Perform Login" type="Action">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="15" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Staff Number" narrative="Required: Robot user Staff Number." expr="[Staff Number]" />
+      <input type="password" name="Password" narrative="Required: Robot use password." expr="[Password]" />
+    </inputs>
+    <onsuccess>5805c41f-0f25-4d67-9cd8-ca6b6cbabd11</onsuccess>
+    <resource object="Centrix Data Solutions - Basic Actions" action="Login" />
+  </stage>
+  <stage stageid="5805c41f-0f25-4d67-9cd8-ca6b6cbabd11" name="Order Processing" type="Action">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="15" y="240" w="90" h="30" />
+    <onsuccess>ee8a9683-ffd5-4cc6-aa32-e9ee8fee1d5f</onsuccess>
+    <resource object="Centrix Data Solutions - Order Processing" action="Attach" />
+  </stage>
+  <stage stageid="2cd3cef1-587f-47eb-bdf7-19def5a7b4a4" name="Staff Number" type="Data">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="-180" y="135" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">bp</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="eec3905e-de3a-48f8-907b-2593c1f69bad" name="Password" type="Data">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="-180" y="165" w="120" h="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>49,20,7,67,26,91,6,1</initialvalueenc>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2759e20a-1cbc-4c65-8599-201a1a588dfe" name="Launch Centrix Data Solutions" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" />
+    <onsuccess>73e959d1-3065-430f-84c4-5dc2290764e5</onsuccess>
+    <processid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</processid>
+  </stage>
+  <stage stageid="5e8452a6-fc86-4dae-ad40-93fb04607640" name="Centrix Data Solutions Path" type="Data">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="-180" y="45" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">C:\BluePrism\Training\Applications\Windows\CentrixDataSolutions.exe</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="027e443a-ef7d-45c7-a1cc-f6758d6d0c6c" name="Launch Centrix Data Solutions" type="Action">
+    <subsheetid>751b93b6-68df-47fb-bdbe-8e9d78b67d02</subsheetid>
+    <display x="15" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Centrix Data Solutions Path" friendlyname="Centrix Data Solutions Path" narrative="Required: Path to the CentrixDataSolutions.exe file." expr="[Centrix Data Solutions Path]" />
+    </inputs>
+    <onsuccess>134a58b2-73c0-4eea-a491-892e12bdc292</onsuccess>
+    <resource object="Centrix Data Solutions - Basic Actions" action="Launch" />
+  </stage>
+  <stage stageid="73e959d1-3065-430f-84c4-5dc2290764e5" name="Stop?" type="Decision">
+    <display x="15" y="180" w="90" h="60" />
+    <font family="Segoe UI" size="10" style="Bold" color="800000" />
+    <decision expression="[Stop After Next Case?] OR IsStopRequested()" />
+    <ontrue>45a821d7-5dcd-460f-a321-e4f8df688fce</ontrue>
+    <onfalse>ae0c72cf-c7c9-494d-ba7d-55048e72ca72</onfalse>
+  </stage>
+  <stage stageid="45a821d7-5dcd-460f-a321-e4f8df688fce" name="Anchor4" type="Anchor">
+    <display x="-90" y="180" w="10" h="10" />
+    <onsuccess>73a63d96-e43d-4c7e-9059-ee7edae9f288</onsuccess>
+  </stage>
+  <stage stageid="73a63d96-e43d-4c7e-9059-ee7edae9f288" name="Anchor5" type="Anchor">
+    <display x="-90" y="435" w="10" h="10" />
+    <onsuccess>f7da3286-90af-4deb-b439-d74f518e3a30</onsuccess>
+  </stage>
+  <stage stageid="ae0c72cf-c7c9-494d-ba7d-55048e72ca72" name="Get Next Order" type="Action">
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="15" y="255" w="90" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="800080" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue" expr="[Work Queue Name]" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="Status" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="Attempts" />
+    </outputs>
+    <onsuccess>b77d38b1-929e-43db-8800-8095dbccd768</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="b77d38b1-929e-43db-8800-8095dbccd768" name="Got Order Item?" type="Decision">
+    <display x="15" y="345" w="90" h="60" />
+    <font family="Segoe UI" size="10" style="Bold" color="800080" />
+    <decision expression="Trim([Item ID]) &lt;&gt; &quot;&quot;" />
+    <ontrue>0c6d4b83-5e1f-4fb7-8ff5-736c2d617ab4</ontrue>
+    <onfalse>f7da3286-90af-4deb-b439-d74f518e3a30</onfalse>
+  </stage>
+  <stage stageid="bed52672-79a9-4c3b-b089-4cbed2bfca7b" name="Global Data" type="SubSheet">
+    <display x="210" y="180" w="90" h="60" />
+    <onsuccess>73e959d1-3065-430f-84c4-5dc2290764e5</onsuccess>
+    <processid>4c36a5d0-8ea8-497e-8c9d-c36270889366</processid>
+  </stage>
+  <stage stageid="539fc3e0-a080-4618-87a1-b5557120b981" name="Block3" type="Block">
+    <display x="150" y="300" w="225" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="af437c73-b6ff-4f11-a69d-a06ab0d85d05" name="Recover3" type="Recover">
+    <display x="330" y="345" />
+    <font family="Segoe UI" size="10" style="Bold" color="800080" />
+    <onsuccess>41137aa6-1525-4931-b6f3-b874a4b012e1</onsuccess>
+  </stage>
+  <stage stageid="41137aa6-1525-4931-b6f3-b874a4b012e1" name="Record Exception Details" type="MultipleCalculation">
+    <display x="435" y="345" />
+    <font family="Segoe UI" size="10" style="Bold" color="800080" />
+    <onsuccess>d0d92516-53b9-41cf-b388-9172012ae592</onsuccess>
+    <steps>
+      <calculation expression="ExceptionDetail()" stage="Exception Detail" />
+      <calculation expression="ExceptionType()" stage="Exception Type" />
+    </steps>
+  </stage>
+  <stage stageid="d0d92516-53b9-41cf-b388-9172012ae592" name="Resume1" type="Resume">
+    <display x="435" y="285" />
+    <font family="Segoe UI" size="10" style="Bold" color="800080" />
+    <onsuccess>fffbba70-7865-41d4-8dcc-e3f739796a8b</onsuccess>
+  </stage>
+  <stage stageid="fffbba70-7865-41d4-8dcc-e3f739796a8b" name="Anchor1" type="Anchor">
+    <display x="435" y="180" w="10" h="10" />
+    <onsuccess>cbdd908e-af46-4c02-a221-d1a5d3574cf3</onsuccess>
+  </stage>
+  <stage stageid="ea074a94-054a-4337-a182-979e693c2d44" name="Process Orders" type="SubSheetInfo">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="f8aa7d75-c1a8-45f5-8d2d-348ecbf9fb06" name="Start" type="Start">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>93836dd1-0290-43db-9445-b76f0f08a7f5</onsuccess>
+  </stage>
+  <stage stageid="15a82e76-d060-4db6-a6b1-2c965fb1c526" name="End" type="End">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="15" y="435" />
+  </stage>
+  <stage stageid="a075bd48-20e9-48b0-9cf5-7611dd40944a" name="Order Confirmation Number" type="Data">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="-180" y="315" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="49ab1f9c-c341-4fc3-9a8b-8ba521095c61" name="Add Confirmation Number to Order Data" type="Action">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="15" y="375" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="Collection" narrative="The collection to append a field to." expr="[Data]" />
+      <input type="text" name="Field Name" narrative="The name of the new field." expr="&quot;Order Confirmation Number&quot;" />
+      <input type="text" name="Value" narrative="The value to be put in the new field." expr="[Order Confirmation Number]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Appended Collection" narrative="The collection with field appended." stage="Data" />
+    </outputs>
+    <onsuccess>15a82e76-d060-4db6-a6b1-2c965fb1c526</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Append Field (Text)" />
+  </stage>
+  <stage stageid="93836dd1-0290-43db-9445-b76f0f08a7f5" name="Read Window Title" type="Action">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="15" y="-30" w="90" h="30" />
+    <outputs>
+      <output type="text" name="Window Title" stage="Window Title" />
+    </outputs>
+    <onsuccess>6f463540-72d5-4c98-bf0d-c77fd0da9161</onsuccess>
+    <resource object="Centrix Data Solutions - Basic Actions" action="Read Window Title" />
+  </stage>
+  <stage stageid="c43754ca-f0c6-49d2-956e-eb9140a42626" name="Window Title" type="Data">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="-180" y="-30" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6f463540-72d5-4c98-bf0d-c77fd0da9161" name="Orders Menu Displalyed?" type="Decision">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="15" y="45" w="90" h="60" />
+    <decision expression="StartsWith([Window Title], &quot;Centrix Data Solutions - [Orders Menu]&quot;)" />
+    <ontrue>045458ed-fb2b-40f9-b259-195fe910f483</ontrue>
+    <onfalse>470a7ae1-c862-465d-b453-8c2ac3de99be</onfalse>
+  </stage>
+  <stage stageid="045458ed-fb2b-40f9-b259-195fe910f483" name="Anchor9" type="Anchor">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="135" y="45" w="10" h="10" />
+    <onsuccess>3a56c3d5-e013-493e-8b02-28dce66ab2ba</onsuccess>
+  </stage>
+  <stage stageid="3a56c3d5-e013-493e-8b02-28dce66ab2ba" name="Anchor10" type="Anchor">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="135" y="180" w="10" h="10" />
+    <onsuccess>d01ecf49-6244-410b-a9b7-f53a457b073b</onsuccess>
+  </stage>
+  <stage stageid="470a7ae1-c862-465d-b453-8c2ac3de99be" name="Click Orders" type="Action">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="15" y="120" w="90" h="30" />
+    <onsuccess>d01ecf49-6244-410b-a9b7-f53a457b073b</onsuccess>
+    <resource object="Centrix Data Solutions - Basic Actions" action="Navigate Menu" />
+  </stage>
+  <stage stageid="d01ecf49-6244-410b-a9b7-f53a457b073b" name="Select New Order" type="Action">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="15" y="180" w="90" h="30" />
+    <inputs>
+      <input type="number" name="Orders Menu Options" narrative="Required: Order menu option to select.  Valid options are 1 - 4." expr="1" />
+    </inputs>
+    <onsuccess>f0a97a36-9d22-4f17-a8d8-01e689591dec</onsuccess>
+    <resource object="Centrix Data Solutions - Order Processing" action="Navigate Orders Menu" />
+  </stage>
+  <stage stageid="f0a97a36-9d22-4f17-a8d8-01e689591dec" name="Input New Order" type="Action">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="15" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Product Code" narrative="Required: Product Code for the order." expr="[Data.Product Code]" />
+      <input type="number" name="Unit Price" narrative="Required: Unit Price for product." expr="[Data.Unit Price]" />
+      <input type="number" name="Quantity" narrative="Required: Quantity to be ordered." expr="[Data.Quantity]" />
+      <input type="text" name="Customer Account Number" narrative="Required: Customer Account Number." expr="[Data.Customer Acct Number]" />
+      <input type="flag" name="Priority Order" narrative="Required: Indicates if order is a priority order." expr="[Data.Priority Order]" />
+    </inputs>
+    <onsuccess>e9e91dbc-34b7-4bd8-aa12-fbc8af577994</onsuccess>
+    <resource object="Centrix Data Solutions - Order Processing" action="Input Order" />
+  </stage>
+  <stage stageid="e9e91dbc-34b7-4bd8-aa12-fbc8af577994" name="Get Confirmation Number" type="Action">
+    <subsheetid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</subsheetid>
+    <display x="15" y="315" w="90" h="30" />
+    <outputs>
+      <output type="text" name="Order Confirmation Number" narrative="This is text to ensure leading zeros are not removed." stage="Order Confirmation Number" />
+    </outputs>
+    <onsuccess>49ab1f9c-c341-4fc3-9a8b-8ba521095c61</onsuccess>
+    <resource object="Centrix Data Solutions - Order Processing" action="Order Confirmation" />
+  </stage>
+  <stage stageid="48b89a5e-b49d-4ba0-afd1-c41fb03b7838" name="Stop After Next Case?" type="Data">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <display x="180" y="60" w="120" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <exposure>Session</exposure>
+  </stage>
+  <stage stageid="f7164220-1aff-43d8-bf0e-e24e98c291d8" name="Item ID" type="Data">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <display x="525" y="-30" w="120" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2a7f2fd8-cfab-447f-bc17-0b161922e2c5" name="Data" type="Collection">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <display x="420" y="-30" w="120" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="000000" />
+    <datatype>collection</datatype>
+    <alwaysinit />
+  </stage>
+  <stage stageid="bd9d062d-dea6-4fc5-8041-19c324618715" name="Status" type="Data">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <display x="420" y="30" w="120" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8cc6f620-6c51-4b80-afb8-5b38ff4dc01d" name="Attempts" type="Data">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <display x="525" y="30" w="120" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="463b8249-b21d-43de-8744-e96b82df66cb" name="Exception Detail" type="Data">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <display x="480" y="120" w="120" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5fb88a52-9926-49e5-97ba-5841c9f01a8b" name="Exception Type" type="Data">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <display x="480" y="180" w="120" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0c6d4b83-5e1f-4fb7-8ff5-736c2d617ab4" name="Process Orders" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="210" y="345" />
+    <onsuccess>cf0f69ab-4ff6-43b7-a977-7b50a4e90f35</onsuccess>
+    <processid>f8c16ba5-bbd5-4bef-a3f7-5cd6b6dba7f5</processid>
+  </stage>
+  <stage stageid="a5ea93af-b57d-4225-8b72-12cadae53320" name="Update Work Queue" type="SubSheetInfo">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="c3dd97d2-99d3-4d9f-907a-13c7ebe2b0bd" name="Start" type="Start">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="New Status" stage="New Status" />
+    </inputs>
+    <onsuccess>e5c2ed17-3e05-4908-a56b-773d13bff0d9</onsuccess>
+  </stage>
+  <stage stageid="b2ff7878-025b-42ea-985d-7ad62c7a0275" name="End" type="End">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <display x="15" y="315" />
+  </stage>
+  <stage stageid="793838cb-d753-4b6b-92b7-cd988b679585" name="New Status" type="Data">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <display x="-225" y="60" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e5c2ed17-3e05-4908-a56b-773d13bff0d9" name="Completed?" type="Decision">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <display x="15" y="-30" w="90" h="60" />
+    <decision expression="[New Status]=&quot;Completed&quot;" />
+    <ontrue>8bdd39c9-341d-48fe-b155-2843281b7842</ontrue>
+    <onfalse>4ea73f41-7e29-46be-bd3a-8cd668f2a977</onfalse>
+  </stage>
+  <stage stageid="8e7c5115-8630-47ab-abeb-d0682a3528b4" name="Mark Order Completed" type="Action">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <narrative>Marks the item as completed, by updating the Completed timestamp and setting Locked to null. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="-75" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>d29def3d-c6fc-4f0b-9253-21a294859fd1</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="0d5bca88-6f0a-407e-a3ce-99bc5d86074f" name="Update Work Queue Data" type="Action">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <narrative>Sets the data on the specified item to the given value. 
+The collection must contain one row exactly, and the key field, if present, must match the key field of the item being updated.
+Also, the item must currently be locked by the current session - ie. it must have been retrieved using the 'Get Next' action.</narrative>
+    <display x="-75" y="60" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the work item to set the data on. This item should be locked by the calling session." expr="[Item ID]" />
+      <input type="collection" name="Data" narrative="A collection with one row containing the data to be set on the item. If the item has a key value and this collection has a key value, they should match exactly." expr="[Data]" />
+    </inputs>
+    <onsuccess>06eac9e7-43da-49f7-bcc5-8e20c3227614</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Set Data" />
+  </stage>
+  <stage stageid="06eac9e7-43da-49f7-bcc5-8e20c3227614" name="Update Work Queue Status" type="Action">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <narrative>Updates the status field for the item. The status field can be used to flag what has been done in a process so far. If a process encounters an exception, this information can be used to skip to the parts of the process not yet done for the item next time it is worked. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.
+
+This action will also reset the Attempts column to zero, because if the status updated the process should have successfully done something.</narrative>
+    <display x="-75" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Status" narrative="The new status - 255 characters maximum." expr="&quot;Processed&quot;" />
+    </inputs>
+    <onsuccess>8e7c5115-8630-47ab-abeb-d0682a3528b4</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Update Status" />
+  </stage>
+  <stage stageid="8bdd39c9-341d-48fe-b155-2843281b7842" name="Anchor11" type="Anchor">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <display x="-75" y="-30" w="10" h="10" />
+    <onsuccess>0d5bca88-6f0a-407e-a3ce-99bc5d86074f</onsuccess>
+  </stage>
+  <stage stageid="4ea73f41-7e29-46be-bd3a-8cd668f2a977" name="Anchor12" type="Anchor">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <display x="105" y="-30" w="10" h="10" />
+    <onsuccess>f1c9b2c7-b068-4058-9926-856a93ed6b36</onsuccess>
+  </stage>
+  <stage stageid="d29def3d-c6fc-4f0b-9253-21a294859fd1" name="Anchor13" type="Anchor">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <display x="-75" y="315" w="10" h="10" />
+    <onsuccess>b2ff7878-025b-42ea-985d-7ad62c7a0275</onsuccess>
+  </stage>
+  <stage stageid="2a13fbda-7112-4b99-bd3d-be50cc408000" name="Mark Order Exception" type="Action">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="105" y="255" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="&quot;Exception Type: &quot; &amp; [Exception Type] &amp; &quot; - Exception Detail: &quot; &amp; [Exception Detail]" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="False" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="New Item ID" />
+    </outputs>
+    <onsuccess>9a99a772-08cc-4c5d-9dd2-fa110a2ae58d</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="f1c9b2c7-b068-4058-9926-856a93ed6b36" name="Update Work Queue Status" type="Action">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <narrative>Updates the status field for the item. The status field can be used to flag what has been done in a process so far. If a process encounters an exception, this information can be used to skip to the parts of the process not yet done for the item next time it is worked. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.
+
+This action will also reset the Attempts column to zero, because if the status updated the process should have successfully done something.</narrative>
+    <display x="105" y="150" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Status" narrative="The new status - 255 characters maximum." expr="[New Status]" />
+    </inputs>
+    <onsuccess>2a13fbda-7112-4b99-bd3d-be50cc408000</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Update Status" />
+  </stage>
+  <stage stageid="9a99a772-08cc-4c5d-9dd2-fa110a2ae58d" name="Anchor14" type="Anchor">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <display x="105" y="315" w="10" h="10" />
+    <onsuccess>b2ff7878-025b-42ea-985d-7ad62c7a0275</onsuccess>
+  </stage>
+  <stage stageid="e3dbd7f5-ccc9-46d9-8aae-8a406dd41e38" name="New Item ID" type="Data">
+    <subsheetid>56d1ff11-01fe-4273-9a47-6159edc1f410</subsheetid>
+    <display x="-225" y="180" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="cf052974-d60d-4039-908f-6856b11810b3" name="Exit Application" type="SubSheetInfo">
+    <subsheetid>001e0f1a-7ec3-4099-b5c1-420a0ab017f3</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="fbd1b391-76bd-404e-926a-55d4bdb1c805" name="Start" type="Start">
+    <subsheetid>001e0f1a-7ec3-4099-b5c1-420a0ab017f3</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>8015fb6a-699e-49fe-8d06-5cfcd15cff93</onsuccess>
+  </stage>
+  <stage stageid="bd047ce5-7b4c-4f4c-8190-cea1b720d08b" name="End" type="End">
+    <subsheetid>001e0f1a-7ec3-4099-b5c1-420a0ab017f3</subsheetid>
+    <display x="165" y="210" />
+  </stage>
+  <stage stageid="3f37137b-c109-46ac-967d-080801ffb0ee" name="Exit Application" type="Action">
+    <subsheetid>001e0f1a-7ec3-4099-b5c1-420a0ab017f3</subsheetid>
+    <display x="165" y="-45" w="90" h="30" />
+    <onsuccess>bd047ce5-7b4c-4f4c-8190-cea1b720d08b</onsuccess>
+    <resource object="Centrix Data Solutions - Basic Actions" action="Exit" />
+  </stage>
+  <stage stageid="8015fb6a-699e-49fe-8d06-5cfcd15cff93" name="Detach Order Processing" type="Action">
+    <subsheetid>001e0f1a-7ec3-4099-b5c1-420a0ab017f3</subsheetid>
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>3f37137b-c109-46ac-967d-080801ffb0ee</onsuccess>
+    <resource object="Centrix Data Solutions - Order Processing" action="Detach" />
+  </stage>
+  <stage stageid="fede6d75-db40-4613-854a-483aed9ce4c2" name="Block1" type="Block">
+    <subsheetid>001e0f1a-7ec3-4099-b5c1-420a0ab017f3</subsheetid>
+    <loginhibit />
+    <display x="105" y="-75" w="210" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="8aafde15-08aa-4300-8f29-ba2f019e412c" name="Recover1" type="Recover">
+    <subsheetid>001e0f1a-7ec3-4099-b5c1-420a0ab017f3</subsheetid>
+    <loginhibit />
+    <display x="270" y="-45" />
+    <onsuccess>c01bb986-3ed3-48a4-ac19-9dd335b0f722</onsuccess>
+  </stage>
+  <stage stageid="c01bb986-3ed3-48a4-ac19-9dd335b0f722" name="Resume1" type="Resume">
+    <subsheetid>001e0f1a-7ec3-4099-b5c1-420a0ab017f3</subsheetid>
+    <loginhibit />
+    <display x="405" y="-45" />
+    <onsuccess>e47dfafb-c09c-4355-9edd-6cfc68cee011</onsuccess>
+  </stage>
+  <stage stageid="e47dfafb-c09c-4355-9edd-6cfc68cee011" name="Kill CentrixDataSolutions" type="Action">
+    <subsheetid>001e0f1a-7ec3-4099-b5c1-420a0ab017f3</subsheetid>
+    <loginhibit />
+    <display x="405" y="90" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Process Name" narrative="The name of the process to kill" expr="&quot;CentrixDataSolutions&quot;" />
+    </inputs>
+    <onsuccess>3a561f36-27d4-4056-8a2c-ad5c22b599f0</onsuccess>
+    <resource object="Utility - Environment" action="Kill Process" />
+  </stage>
+  <stage stageid="f7f9c704-cb97-4835-8e24-136edb68ddd5" name="Live Process" type="Data">
+    <subsheetid>4c36a5d0-8ea8-497e-8c9d-c36270889366</subsheetid>
+    <narrative>We will use this to disable stages implemented for debug and test purposes only.</narrative>
+    <display x="165" y="165" w="120" h="30" />
+    <font family="Segoe UI" size="10" style="Bold" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+  </stage>
+  <stage stageid="f7da3286-90af-4deb-b439-d74f518e3a30" name="Exit Application" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="435" />
+    <onsuccess>40d28470-6fb9-4735-a37d-a3d9636321bc</onsuccess>
+    <processid>001e0f1a-7ec3-4099-b5c1-420a0ab017f3</processid>
+  </stage>
+  <stage stageid="cbdd908e-af46-4c02-a221-d1a5d3574cf3" name="Update Work Queue" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="330" y="180" />
+    <inputs>
+      <input type="text" name="New Status" friendlyname="New Status" expr="[Exception Type]" />
+    </inputs>
+    <onsuccess>bed52672-79a9-4c3b-b089-4cbed2bfca7b</onsuccess>
+    <processid>56d1ff11-01fe-4273-9a47-6159edc1f410</processid>
+  </stage>
+  <stage stageid="cf0f69ab-4ff6-43b7-a977-7b50a4e90f35" name="Update Work Queue" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="210" y="255" />
+    <inputs>
+      <input type="text" name="New Status" friendlyname="New Status" expr="&quot;Completed&quot;" />
+    </inputs>
+    <onsuccess>bed52672-79a9-4c3b-b089-4cbed2bfca7b</onsuccess>
+    <processid>56d1ff11-01fe-4273-9a47-6159edc1f410</processid>
+  </stage>
+  <stage stageid="3a561f36-27d4-4056-8a2c-ad5c22b599f0" name="Anchor2" type="Anchor">
+    <subsheetid>001e0f1a-7ec3-4099-b5c1-420a0ab017f3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="405" y="210" w="10" h="10" />
+    <onsuccess>bd047ce5-7b4c-4f4c-8190-cea1b720d08b</onsuccess>
+  </stage>
+</process>
